@@ -54,18 +54,33 @@ class MediaWatcherService : NotificationListenerService() {
     private val sessionListener =
         MediaSessionManager.OnActiveSessionsChangedListener { list -> attach(list ?: emptyList()) }
 
-    private val restoreRunnable: Runnable = Runnable {
-        worker.execute {
-            val ok = try { LockArt.restore(this) } catch (e: Exception) { Log.w(TAG, "restore failed", e); false }
-            if (ok) {
-                restoreRetries = 0
-                lastKey = null
-                currentKey = null
-                pendingKey = null
-            } else if (restoreRetries < 3) {
-                // The wallpaper could not be put back (yet). Try again shortly instead of leaving the cover stuck.
-                restoreRetries++
-                main.postDelayed(restoreRunnable, 4000)
+    private val restoreRunnable: Runnable = object : Runnable {
+    
+        override fun run() {
+            worker.execute {
+    
+                val ok = try {
+                    LockArt.restore(this@MediaWatcherService)
+                } catch (e: Exception) {
+                    Log.w(TAG, "restore failed", e)
+                    false
+                }
+    
+                if (ok) {
+                    restoreRetries = 0
+                    lastKey = null
+                    currentKey = null
+                    pendingKey = null
+    
+                } else if (restoreRetries < 3) {
+    
+                    restoreRetries++
+    
+                    main.postDelayed(
+                        this@MediaWatcherService.restoreRunnable,
+                        4000
+                    )
+                }
             }
         }
     }
