@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+
+    <!-- orbit ring -->
+    <group
+        android:pivotX="54"
+        android:pivotY="54"
+        android:rotation="-24">
+        <path
+            android:fillColor="#00000000"
+            android:pathData="M24,54 a30,11 0 1,0 60,0 a30,11 0 1,0 -60,0"
+            android:strokeColor="#CCFFFFFF"
+            android:strokeWidth="2" />
+    </group>
+
+    <!-- big chrome sparkle -->
+    <path android:pathData="M54,26 C55,43 65,53 82,54 C65,55 55,65 54,82 C53,65 43,55 26,54 C43,53 53,43 54,26 Z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:startX="30"
+                android:startY="28"
+                android:endX="78"
+                android:endY="80"
+                android:type="linear">
+                <item android:offset="0" android:color="#FFFFFFFF" />
+                <item android:offset="0.5" android:color="#FFCDD5FF" />
+                <item android:offset="1" android:color="#FFFFFFFF" />
+            </gradient>
+        </aapt:attr>
+    </path>
+
+    <!-- small sparkle -->
+    <path
+        android:fillColor="#FFFFFFFF"
+        android:pathData="M78,25 C78.3,29.5 80.5,31.7 85,32 C80.5,32.3 78.3,34.5 78,39 C77.7,34.5 75.5,32.3 71,32 C75.5,31.7 77.7,29.5 78,25 Z" />
+</vector>
